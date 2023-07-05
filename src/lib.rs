@@ -87,7 +87,7 @@ pub mod godot {
                 Suffix::Rc(x) => format!("-rc{}", x),
                 Suffix::Stable => format!("-stable"),
             };
-            let mono_str = if self.is_mono { "_mono" } else { "_stable" };
+            let mono_str = if self.is_mono { "_mono" } else { "" };
             write!(
                 f,
                 "Godot_v{}.{}.{}{}{}",
@@ -139,18 +139,18 @@ pub mod godot {
             is_mono: false,
             platform: Platform::Win32,
         };
-        assert_eq!(vcs.to_string(), "Godot_v4.0.3_stable");
+        assert_eq!(vcs.to_string(), "Godot_v4.0.3-stable");
         let vcs = Version {
             suffix: Suffix::Rc(3),
             ..vcs
         };
-        assert_eq!(vcs.to_string(), "Godot_v4.0.3-rc3_stable");
+        assert_eq!(vcs.to_string(), "Godot_v4.0.3-rc3");
         let vcs = Version {
             suffix: Suffix::Stable,
             is_mono: true,
             ..vcs
         };
-        assert_eq!(vcs.to_string(), "Godot_v4.0.3_mono");
+        assert_eq!(vcs.to_string(), "Godot_v4.0.3-stable_mono");
         let vcs = Version {
             suffix: Suffix::Alpha(11),
             ..vcs
